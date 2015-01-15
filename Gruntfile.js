@@ -3,6 +3,22 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+      options: {
+        separator: ';',
+      },
+      dist: {
+        src: [
+          'app/*/*',
+          'public/*/*'
+        ],
+        dest: 'public/dist/production.js'
+      }
+    },
+    uglify: {
+      dist: {
+        src: 'public/dist/production.js',
+        dest:'uglyProduction.js'
+      }
     },
 
     mochaTest: {
@@ -14,14 +30,14 @@ module.exports = function(grunt) {
       }
     },
 
+
+
     nodemon: {
       dev: {
         script: 'server.js'
       }
     },
 
-    uglify: {
-    },
 
     jshint: {
       files: [
@@ -88,6 +104,8 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
   // Main grunt tasks
   ////////////////////////////////////////////////////
+ grunt.registerTask('default', ['concat']
+  );
 
   grunt.registerTask('test', [
     'mochaTest'
@@ -98,7 +116,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
-      // add your production server task here
+      grunt.registerTask('default', ['concat', 'uglify'])
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
