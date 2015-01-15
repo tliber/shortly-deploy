@@ -3,26 +3,31 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
-      options: {
-        separator: ';',
-      },
       dist: {
         src: [
-          'app/*/*',
-          'public/*/*'
+          // 'app/*/*',
+          // 'public/*/*'
+          // 'public/client/app.js',
+          // 'public/client/link.js',
+          // 'public/client/links.js',
+          // 'public/client/linkView.js',
+          // 'public/client/linksView.js',
+          // 'public/client/createLinkView.js',
+          'public/client/*.js'
         ],
         dest: 'public/dist/production.js'
       }
     },
     clean: {
       build: {
-        src: ["public/dist/production.js"]
+        src: ["public/dist/production.js",
+              "public/dist/production.min.js"]
       }
     },
     uglify: {
       dist: {
         src: 'public/dist/production.js',
-        dest:'public/dist/production.js'
+        dest:'public/dist/production.min.js'
       }
     },
 
